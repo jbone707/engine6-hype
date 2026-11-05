@@ -982,6 +982,10 @@
   function addPop(x, y, text) { G.pops.push({ x: x, y: y, text: text, t: 0 }); }
 
   function setDir(k) { if (G && G.p && DIRS[k]) G.p.next = DIRS[k]; }
+  // Test hook, only with ?debug in the URL: lets a test step the game clock by hand.
+  if (/[?&]debug\b/.test(location.search)) {
+    window.E6 = { game: function () { return G; }, step: function (dt) { updateGame(dt); drawGame(); }, dir: setDir, open: openGame };
+  }
 
   /* movement: actors step cell to cell and choose a direction on arrival */
   function same(a, b) { return a && b && a[0] === b[0] && a[1] === b[1]; }
