@@ -293,13 +293,13 @@
   .gbtns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
   .gbtn { font-size: 22px; padding: 10px 26px; }
   .keyhint { font-size: 14px; color: #c9a99c; }
-  .dpad { display: none; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 54px); gap: 6px; }
+  .dpad { display: none; grid-template-columns: repeat(3, 78px); grid-template-rows: repeat(2, 70px); gap: 8px; }
   .dpad button {
     display: flex; align-items: center; justify-content: center;
     background: rgba(0,0,0,.5); border: 2px solid rgba(255,90,60,.85); border-radius: 12px;
   }
   .dpad button:active { background: var(--red); }
-  .dpad svg { width: 22px; height: 22px; fill: #fff; }
+  .dpad svg { width: 30px; height: 30px; fill: #fff; }
   .dpad .u { grid-column: 2; grid-row: 1; }
   .dpad .l { grid-column: 1; grid-row: 2; }
   .dpad .d { grid-column: 2; grid-row: 2; }
@@ -884,7 +884,7 @@
   function sizeGame() {
     var coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches;
     var availW = Math.min(window.innerWidth - 46, 560);
-    var availH = window.innerHeight - (coarse ? 250 : 140);
+    var availH = window.innerHeight - (coarse ? 280 : 140);
     cell = Math.max(12, Math.floor(Math.min(availW / COLS, availH / ROWS)));
     var w = COLS * cell, h = ROWS * cell;
     mz.width = w * DPR; mz.height = h * DPR;
