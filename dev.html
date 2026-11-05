@@ -60,7 +60,7 @@
   }
 
   /* Stage */
-  #stage { position: fixed; inset: 0; overflow: hidden; visibility: hidden; }
+  #stage { position: fixed; inset: 0; overflow: hidden; overflow: clip; visibility: hidden; }
   #stage.live { visibility: visible; }
   #stage.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
   @keyframes shake {
@@ -1267,6 +1267,8 @@
   });
   ["pointerup", "pointercancel", "pointerleave"].forEach(function (n) { gameEl.addEventListener(n, function () { sw = null; }); });
   window.addEventListener("resize", function () { if (!gameEl.hidden) sizeGame(); });
+  // Off-screen cards make the stage scrollable where overflow: clip is missing, and focusing a button scrolls it.
+  stage.addEventListener("scroll", function () { if (stage.scrollTop || stage.scrollLeft) { stage.scrollTop = 0; stage.scrollLeft = 0; } });
 
   $("go").addEventListener("click", function () {
     initAudio();
