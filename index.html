@@ -667,12 +667,13 @@
   /* ---------- Timeline (seconds after the tap) ---------- */
   // 120 BPM from the title slam: one beat is 0.5 s, one bar is 2 s, every card lands on a downbeat.
   var T = {
+    n3: 0.0, n2: 1.0, n1: 2.0,
     title: 3.0, titleSmall: 6.0,
     c1: 7.0, c1out: 10.6, c2: 11.0, c2out: 14.6, c3: 15.0, c3out: 18.6,
     lineup: 19.0, lineupOut: 22.6,
-    n3: 23.0, n2: 24.0, n1: 25.0, tomorrow: 26.0, final: 27.5, replay: 28.3
+    tomorrow: 23.0, final: 24.5, replay: 25.3
   };
-  var BEAT = 0.5, BARS = 10; // bars run from T.title to T.n3
+  var BEAT = 0.5, BARS = 10; // bars run from T.title to T.tomorrow
 
   function scheduleAudio(a0) {
     riser(a0, T.title, 1400);
@@ -682,7 +683,7 @@
     hit(a0 + T.lineup, 1.1); hit(a0 + T.lineup + .3, .55); hit(a0 + T.lineup + .6, .7);
     blip(a0 + T.n3, 880); blip(a0 + T.n2, 880); blip(a0 + T.n1, 1320);
     hit(a0 + T.n3, .4); hit(a0 + T.n2, .45); hit(a0 + T.n1, .5);
-    riser(a0 + T.n3, T.tomorrow - T.n3, 2000);
+    riser(a0 + T.tomorrow - 2, 2, 2000);
     hit(a0 + T.tomorrow, 1.4);
     pad(a0 + T.tomorrow, 9);
     hit(a0 + T.final, .6);
@@ -698,6 +699,9 @@
   function showCount(n) { count.textContent = n; restart(count, "pop2"); }
 
   var events = [
+    [T.n3, function () { showCount("3"); }],
+    [T.n2, function () { showCount("2"); }],
+    [T.n1, function () { showCount("1"); }],
     [T.title, function () { title.classList.add("in"); impact(70); }],
     [T.titleSmall, function () { title.classList.add("small"); }],
     [T.c1, function () { cards[0].classList.add("in"); impact(40); }],
@@ -708,9 +712,6 @@
     [T.c3out, function () { cards[2].classList.add("out"); }],
     [T.lineup, function () { lineup.classList.add("in"); impact(60); }],
     [T.lineupOut, function () { lineup.classList.add("out"); title.classList.add("hide"); }],
-    [T.n3, function () { showCount("3"); }],
-    [T.n2, function () { showCount("2"); }],
-    [T.n1, function () { showCount("1"); }],
     [T.tomorrow, function () { fin.classList.add("t"); impact(110); }],
     [T.final, function () { fin.classList.add("f"); burst(30); }],
     [T.replay, function () { fin.classList.add("r"); $("replay").focus({ preventScroll: true }); }]
